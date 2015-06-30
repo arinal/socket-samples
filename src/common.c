@@ -8,29 +8,21 @@
 
 int read_line(int sock, char buffer[], int len)
 {
-    char* c; int n;
-    for (n = 0, c = buffer; n < len; ++n, ++c) {
-        read(sock, c, 1);
-        if (*c == '\n') {
-            *c = 0;
-            break;
-        }
-    }
-    return n;
+    return (int) read(sock, buffer, (size_t) len);
 }
 
 int write_line(int sock, char buffer[], int len)
 {
     int left = len;
     while (left > 0) {
-        int n = write(sock, buffer, left);
+        ssize_t n = write(sock, buffer, (size_t) left);
         left -= n;
         buffer += n;
     }
     return len;
 }
 
-void *get_in_addr(const struct sockaddr *sock_addr)
+void *get_in_addr(struct sockaddr *sock_addr)
 {
     return (sock_addr->sa_family == AF_INET)? &(((struct sockaddr_in*) sock_addr)->sin_addr) :
            &(((struct sockaddr_in6*) sock_addr)->sin6_addr);
@@ -51,17 +43,17 @@ int probe_local_addr(int listen_port)
         return -1;
     }
 
-    int listen_sock;
+    int listen_fd = -1;
     struct addrinfo *p_addr;
     for (p_addr = res_addr; p_addr != NULL; p_addr = p_addr->ai_next) {
-        listen_sock = socket(p_addr->ai_family, p_addr->ai_socktype, p_addr->ai_protocol);
-        if (listen_sock < 0) continue;
+        listen_fd = socket(p_addr->ai_family, p_addr->ai_socktype, p_addr->ai_protocol);
+        if (listen_fd < 0) continue;
 
         bool yes = true;
-        setsockopt(listen_sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof yes);
-        if (bind(listen_sock, p_addr->ai_addr, p_addr->ai_addrlen) < 0) {
+        setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof yes);
+        if (bind(listen_fd, p_addr->ai_addr, p_addr->ai_addrlen) < 0) {
             perror("bind");
-            close(listen_sock);
+            close(listen_fd);
             continue;
         }
         break;
@@ -71,5 +63,15 @@ int probe_local_addr(int listen_port)
 
     freeaddrinfo(res_addr);
 
-    return listen_sock;
+    return listen_fd;
 }
+
+
+//    char* c; int n;
+//    for (n = 0, c = buffer; n < len; ++n, ++c) {
+//        if (*c == '\n') {
+//            *c = 0;
+//            break;
+//        }
+//    }
+//    return n;
