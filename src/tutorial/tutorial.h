@@ -1,7 +1,3 @@
-//
-// Created by dicky on 30/06/15.
-//
-
 #ifndef SOCKET_SAMPLES_TUTORIAL_H
 #define SOCKET_SAMPLES_TUTORIAL_H
 

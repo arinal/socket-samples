@@ -3,7 +3,7 @@
 #include <string.h>
 #include <netinet/in.h>
 #include "server.h"
-#include "common.h"
+#include "common/common.h"
 
 void process_command(server_t *server, command_t *command)
 {
