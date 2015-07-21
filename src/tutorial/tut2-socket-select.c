@@ -1,7 +1,24 @@
-void echo_server_using_select(int port)
+#include <sys/socket.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <string.h>
+
+int main()
 {
-    int listen_sock = probe_local_addr(port);
-    listen(listen_sock, 10);
+    int port = 8088;
+    struct sockaddr_in server_addr;
+    memset(&server_addr, 0, sizeof(server_addr));
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+    server_addr.sin_port = htons(port);
+
+    int listen_sock = socket(AF_INET, SOCK_STREAM, 0);
+    bind(listen_sock, (struct sockaddr*) &server_addr, sizeof(server_addr));
+    listen(listen_sock, 1024);
     printf("Listened to port %d\n", port);
 
     int max_fd = listen_sock;

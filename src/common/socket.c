@@ -41,6 +41,9 @@ int write_line(int sock, char buffer[], int len)
 	int left = len;
 	while (left > 0) {
 		ssize_t n = write(sock, buffer, (size_t) left);
+		if (n == -1)
+			if (errno == EINTR) continue;
+			else return -1;
 		left -= n;
 		buffer += n;
 	}

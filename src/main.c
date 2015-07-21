@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "common/common.h"
 #include "server.h"
 
 int main()
@@ -17,11 +16,32 @@ int main()
 
 	server_listen(&server);
 	printf("Listened to port %d\n", server.port);
+	printf("Choose one from the following loops:"
+		"1. Plain\n"
+		"2. Fork new process\n"
+		"3. Spawn new thread\n"
+		"4. Multiplexed I/O (select)\n"
+		"5. epoll\n"
+		"Your options: ");
+	char opt = getc(stdin);
 
-//    loop_plain(&server);
-//    loop_fork_process(&server);
-//    loop_thread(&server);
-	loop_select(&server);
+	switch (opt) {
+		case '1':
+			loop_plain(&server);
+			break;
+		case '2':
+			loop_fork_process(&server);
+			break;
+		case '3':
+			loop_thread(&server);
+			break;
+		case '4':
+			loop_select(&server);
+			break;
+//        case '5':
+//            loop_epoll(&server);
+//            break;
+	}
 
 	return 0;
 }
