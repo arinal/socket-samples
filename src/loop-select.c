@@ -30,10 +30,7 @@ void loop_select(server_t *server)
 					int new_fd = accept(server->listen_fd, &rem_addr, &addr_len);
 					FD_SET(new_fd, &active_fds);
 					if (new_fd > max_fd) max_fd = new_fd;
-					char remote_ip[INET6_ADDRSTRLEN];
-					printf("server: new connection from %s on socket %d\n",
-						   inet_ntop(rem_addr.sa_family, get_in_addr(&rem_addr), remote_ip, INET6_ADDRSTRLEN),
-						   new_fd);
+					printf("server: new connection on socket %d\n", new_fd);
 				} else {
 					command_t command = get_next_command(fd);
 					process_command(server, &command);

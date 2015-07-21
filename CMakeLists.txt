@@ -11,13 +11,14 @@ set(SOURCE_FILES
     src/loop-fork-process.c
     src/loop-thread.c
     src/loop-select.c
+    src/loop-epoll.c
     src/server.c
 )
 
 add_executable(socket-samples ${SOURCE_FILES}
+    src/server.h
     src/common/common.h
     src/common/socket.h
-    src/server.h
     src/common/errors.h
     src/common/daemonize.h
 )

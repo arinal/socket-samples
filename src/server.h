@@ -30,5 +30,6 @@ void loop_plain(server_t *server);
 void loop_thread(server_t *server);
 void loop_fork_process(server_t *server);
 void loop_select(server_t *server);
+void loop_epoll(server_t *server);
 
 #endif //SOCKET_SAMPLES_SERVER_H

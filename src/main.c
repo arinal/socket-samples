@@ -38,9 +38,9 @@ int main()
 		case '4':
 			loop_select(&server);
 			break;
-//        case '5':
-//            loop_epoll(&server);
-//            break;
+        case '5':
+            loop_epoll(&server);
+            break;
 	}
 
 	return 0;

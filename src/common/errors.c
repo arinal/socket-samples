@@ -50,12 +50,17 @@ static void output_error(bool useErr, int err, bool flushStdout, const char *for
     fflush(stderr);           /* In case stderr is not line-buffered */
 }
 
-void err_exit(const char *format, ...)
+void err_message(const char *format, ...)
 {
     va_list args;
     va_start(args, format);
     output_error(true, errno, true, format, args);
     va_end(args);
+}
+
+void err_exit(const char *format, ...)
+{
+    err_message(format);
     terminate(true);
 }
 

@@ -1,7 +1,7 @@
 #ifndef _ERRORS_H_
 #define _ERRORS_H_
 
-void err_msg(const char *format, ...);
+void err_message(const char *format, ...);
 
 #ifdef __GNUC__
 
