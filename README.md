@@ -18,16 +18,15 @@ The server stores a counter which can be set, added or subtracted by various com
 2. `git clone https://github.com/arinal/socket-samples.git`.
 3. `mkdir build && cd build`.
 4. `cmake ..` this will generate Makefile in `build` directory.
-5. Open `src/main.c` with your favorite editor. Choose one from many loop functions at the end of `main` by commenting.
-6. Executing `make` will trigger the compilation process and make executable called `socket-samples` when done.
-7. `./socket-samples` to execute it and trigger a server run.
-8. Spawn another terminal, connect to the server by executing `telnet localhost 8088` to start TCP session. Now, the
+5. Executing `make` will trigger the compilation process and make executable called `socket-samples` when done.
+6. `./socket-samples` to execute it and trigger a server run.
+7. Spawn another terminal, connect to the server by executing `telnet localhost 8088` to start TCP session. Now, the
   fun parts begin. Try these commands:
     - `?`.
     - `+50`
     - `-20`.
     - `= 1 12`.
     - Don't call `~` yet.
-9.  Spawn even more terminal to simulate multiple connections. Connect and use above commands. Use `~` to close TCP connection. 
+8.  Spawn even more terminal to simulate multiple connections. Connect and use above commands. Use `~` to close TCP connection. 
   Note, multiple connections won't work if you choose `loop_plain` in `main.c`.
-10. Happy learning! :)
+9. Happy learning! :)
